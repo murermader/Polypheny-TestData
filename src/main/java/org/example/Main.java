@@ -3,14 +3,8 @@ package org.example;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
-import java.util.List;
 
-import org.polypheny.jdbc.PolyConnection;
-import org.polypheny.jdbc.multimodel.DocumentResult;
-import org.polypheny.jdbc.multimodel.PolyStatement;
-import org.polypheny.jdbc.multimodel.Result;
-import org.polypheny.jdbc.types.PolyDocument;
+import kong.unirest.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,16 +53,15 @@ public class Main {
     }
 
     public static void executeMql(String mql) {
-        try (JdbcConnection polyphenyDbConnection = new JdbcConnection(true)) {
-            PolyConnection polyConnection = (PolyConnection) polyphenyDbConnection.getConnection();
-            PolyStatement polyStatement = polyConnection.createPolyStatement();
-            logger.info("executeMql: {}", mql);
-            // TODO Caused by: org.polypheny.jdbc.PrismInterfaceServiceException: Language mql not supported.
-            Result result = polyStatement.execute(NAMESPACE_DOC, "mql", mql);
-            logger.info("Result: {}", result);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        logger.info("executeMql: {}", mql);
+        HttpResponse<String> result = MongoConnection.executeGetResponse(mql, NAMESPACE_DOC);
+        assert result.getStatus() == 200;
+    }
+
+    public static void executeCypher(String cypher) {
+        logger.info("executeCypher: {}", cypher);
+        HttpResponse<String> result = CypherConnection.executeGetResponse(cypher, NAMESPACE_GRAPH);
+        assert result.getStatus() == 200;
     }
 
     public static void executeUpdateSql(String sql) {
@@ -83,3 +76,4 @@ public class Main {
 
     }
 }
+
