@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,10 +16,22 @@ public class Main {
     public static final String NAMESPACE_REL = "rel";
     public static final String NAMESPACE_GRAPH = "graph";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         logger.info("Polypheny-TestData started.");
+        String currentPath = System.getProperty( "user.home" );
+        File file = new File( currentPath, "RO" );
+        if ( file.exists() ) {
+            boolean fileDeleted = file.delete();
+            assert fileDeleted;
+            logger.info("File {} deleted.", file.getAbsolutePath());
+        }
+
         createNamespaces();
         insertTestData();
+
+        boolean fileCreated = file.createNewFile();
+        assert fileCreated;
+        logger.info("File {} created.", file.getAbsolutePath());
         logger.info("Done!");
     }
 
