@@ -10,6 +10,8 @@ import kong.unirest.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.example.FileContentReader.readFileFromResources;
+
 public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static final String NAMESPACE_DOC = "doc";
@@ -29,10 +31,10 @@ public class Main {
         createNamespaces();
         insertTestData();
 
-        boolean fileCreated = file.createNewFile();
-        assert fileCreated;
-        logger.info("File {} created.", file.getAbsolutePath());
-        logger.info("Done!");
+//        boolean fileCreated = file.createNewFile();
+//        assert fileCreated;
+//        logger.info("File {} created.", file.getAbsolutePath());
+//        logger.info("Done!");
     }
 
     private static void createNamespaces() {
@@ -61,9 +63,12 @@ public class Main {
 //        );
     }
 
-    private static void insertTestData() {
+
+    private static void insertTestData() throws IOException {
         logger.info("Inserting test data");
-        executeMql("db.geoCollection2.insertMany( { test: \"Hello World!\" } )");
+
+        String individualCoords = readFileFromResources("mql/individualCoords.mql");
+        executeMql(individualCoords);
     }
 
     public static void executeMql(String mql) {
