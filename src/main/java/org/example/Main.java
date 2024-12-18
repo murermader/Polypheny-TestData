@@ -15,7 +15,6 @@ import static org.example.FileContentReader.readFileFromResources;
 public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static final String NAMESPACE_DOC = "doc";
-    public static final String NAMESPACE_REL = "rel";
     public static final String NAMESPACE_GRAPH = "graph";
 
     public static void main(String[] args) throws IOException {
@@ -45,12 +44,6 @@ public class Main {
         );
         executeUpdateSql(
                 "CREATE DOCUMENT NAMESPACE IF NOT EXISTS " + NAMESPACE_DOC
-        );
-        executeUpdateSql(
-                "DROP NAMESPACE IF EXISTS " + NAMESPACE_REL
-        );
-        executeUpdateSql(
-                "CREATE RELATIONAL NAMESPACE IF NOT EXISTS " + NAMESPACE_REL
         );
 
         // Graph
