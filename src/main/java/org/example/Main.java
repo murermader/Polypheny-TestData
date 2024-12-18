@@ -71,7 +71,7 @@ public class Main {
         executeMql(individualCoords);
 
         executeUpdateSql("""
-                DROP TABLE BernTempSensors
+                DROP TABLE IF EXISTS BernTempSensors
                 """);
         executeUpdateSql("""
                 CREATE TABLE BernTempSensors (
