@@ -69,6 +69,21 @@ public class Main {
 
         String individualCoords = readFileFromResources("mql/individualCoords.mql");
         executeMql(individualCoords);
+
+        executeUpdateSql("""
+                DROP TABLE BernTempSensors
+                """);
+        executeUpdateSql("""
+                CREATE TABLE BernTempSensors (
+                    stationId INT NOT NULL,
+                    temp DOUBLE NOT NULL,
+                    relativeHumidity DOUBLE NOT NULL,
+                    name VARCHAR(100) NOT NULL,
+                    Location GEOMETRY NOT NULL,
+                    PRIMARY KEY (stationId));
+                """);
+        String bern = readFileFromResources("bern.sql");
+        executeUpdateSql(bern);
     }
 
     public static void executeMql(String mql) {
