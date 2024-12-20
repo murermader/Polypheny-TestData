@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import kong.unirest.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.example.FileContentReader.readFileFromResources;
+import static org.example.FileContentReader.readFilesFromResources;
 
 public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -62,6 +64,9 @@ public class Main {
 
         String individualCoords = readFileFromResources("mql/individualCoords.mql");
         executeMql(individualCoords);
+
+        List<String> indis = readFilesFromResources("mql/indi/*");
+        indis.forEach(Main::executeMql);
 
         executeUpdateSql("""
                 DROP TABLE IF EXISTS BernTempSensors

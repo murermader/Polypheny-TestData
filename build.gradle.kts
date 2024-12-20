@@ -21,6 +21,7 @@ dependencies {
     implementation("org.polypheny:polypheny-jdbc-driver:${polypheny_jdbc_driver_version}")
     implementation("ch.qos.logback:logback-classic:1.4.12")
     implementation("com.konghq:unirest-java:3.14.5")
+    implementation("io.github.cdimascio:dotenv-java:3.1.0")
 }
 
 tasks.test {
