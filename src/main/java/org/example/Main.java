@@ -11,8 +11,7 @@ import kong.unirest.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.example.FileContentReader.readFileFromResources;
-import static org.example.FileContentReader.readFilesFromResources;
+import static org.example.FileContentReader.*;
 
 public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -65,7 +64,13 @@ public class Main {
         String individualCoords = readFileFromResources("mql/individualCoords.mql");
         executeMql(individualCoords);
 
-        List<String> indis = readFilesFromResources("mql/indi/*.mql");
+//        List<String> indis = readFilesFromResources("mql/indi/*.mql");
+//        indis.forEach(Main::executeMql);
+
+        List<String> indis = readFilesFromResourcesByList(List.of(
+                "mql/indi/indi_1.mql",
+                "mql/indi/indi_2.mql"
+        ));
         indis.forEach(Main::executeMql);
 
         executeUpdateSql("""
@@ -85,13 +90,13 @@ public class Main {
     }
 
     public static void executeMql(String mql) {
-        logger.info("executeMql: {}", mql);
+        logger.info("executeMql: {}", mql.length() > 50 ? mql.substring(0, 50) : mql);
         HttpResponse<String> result = MongoConnection.executeGetResponse(mql, NAMESPACE_DOC);
         assert result.getStatus() == 200;
     }
 
     public static void executeCypher(String cypher) {
-        logger.info("executeCypher: {}", cypher);
+        logger.info("executeCypher: {}", cypher.length() > 50 ? cypher.substring(0, 50) : cypher);
         HttpResponse<String> result = CypherConnection.executeGetResponse(cypher, NAMESPACE_GRAPH);
         assert result.getStatus() == 200;
     }
@@ -100,7 +105,7 @@ public class Main {
         try (JdbcConnection polyphenyDbConnection = new JdbcConnection(true)) {
             Connection connection = polyphenyDbConnection.getConnection();
             Statement statement = connection.createStatement();
-            logger.info("executeUpdateSql: {}", sql);
+            logger.info("executeUpdateSql: {}", sql.length() > 50 ? sql.substring(0, 50) : sql);
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);

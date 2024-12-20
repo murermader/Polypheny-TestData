@@ -60,6 +60,41 @@ public class FileContentReader {
         return fileContents;
     }
 
+    public static List<String> readFilesFromResourcesByList(List<String> relativePaths) throws IOException {
+        Dotenv dotenv = Dotenv.load();
+        String resourcesDir = dotenv.get("RESOURCES_DIR");
+        if (resourcesDir == null || resourcesDir.isEmpty()) {
+            throw new IllegalArgumentException("RESOURCES_DIR not defined in .env file");
+        }
+
+        logger.info("Resources directory: " + resourcesDir);
+
+        List<String> fileContents = new ArrayList<>();
+        Path resourceDirPath = Path.of(resourcesDir);
+
+        if (!Files.exists(resourceDirPath)) {
+            throw new IllegalArgumentException("Resources directory does not exist: " + resourcesDir);
+        }
+
+        relativePaths.forEach(relativePath -> {
+            Path fullPath = resourceDirPath.resolve(relativePath);
+            logger.info("Full path: " + fullPath);
+            try (BufferedReader reader = Files.newBufferedReader(fullPath)) {
+                String content = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                fileContents.add(content);
+            } catch (IOException e) {
+                logger.info("Error reading file: " + fullPath);
+                throw new RuntimeException("Error reading file: " + fullPath);
+            }
+        });
+
+        if (fileContents.isEmpty()) {
+            throw new RuntimeException("No files found for the provided relative paths.");
+        }
+
+        return fileContents;
+    }
+
     public static String readFileFromResources(String filePath) throws IOException {
         ClassLoader classLoader = FileContentReader.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(filePath)) {
