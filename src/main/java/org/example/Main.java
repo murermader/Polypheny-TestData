@@ -65,7 +65,7 @@ public class Main {
         String individualCoords = readFileFromResources("mql/individualCoords.mql");
         executeMql(individualCoords);
 
-        List<String> indis = readFilesFromResources("mql/indi/*");
+        List<String> indis = readFilesFromResources("mql/indi/*.mql");
         indis.forEach(Main::executeMql);
 
         executeUpdateSql("""
