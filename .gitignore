@@ -43,3 +43,4 @@ bin/
 /.idea/
 .env
 main.log
+.env
