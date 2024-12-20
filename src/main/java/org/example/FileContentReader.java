@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static org.example.Main.logger;
+
 public class FileContentReader {
     public static List<String> readFilesFromResources(String globPath) throws IOException {
         Dotenv dotenv = Dotenv.load();
@@ -21,8 +23,8 @@ public class FileContentReader {
             throw new IllegalArgumentException("RESOURCES_DIR not defined in .env file");
         }
 
-        System.out.println("Resources directory: " + resourcesDir);
-        System.out.println("Glob pattern: " + globPath);
+        logger.info("Resources directory: " + resourcesDir);
+        logger.info("Glob pattern: " + globPath);
 
         List<String> fileContents = new ArrayList<>();
         Path resourceDirPath = Path.of(resourcesDir);
@@ -35,24 +37,24 @@ public class FileContentReader {
 
         try (var paths = Files.walk(resourceDirPath)) {
             paths.forEach(path -> {
-                System.out.println("Checking path: " + path);
+                logger.info("Checking path: " + path);
                 if (matcher.matches(path)) {
-                    System.out.println("Matched file: " + path);
+                    logger.info("Matched file: " + path);
                     try (BufferedReader reader = Files.newBufferedReader(path)) {
                         String content = reader.lines().collect(Collectors.joining(System.lineSeparator()));
                         fileContents.add(content);
                     } catch (IOException e) {
-                        System.err.println("Error reading file: " + path);
+                        logger.info("Error reading file: " + path);
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("No match for file: " + path);
+                    logger.info("No match for file: " + path);
                 }
             });
         }
 
         if (fileContents.isEmpty()) {
-            System.out.println("No files matched the glob pattern.");
+            logger.info("No files matched the glob pattern.");
         }
 
         return fileContents;
