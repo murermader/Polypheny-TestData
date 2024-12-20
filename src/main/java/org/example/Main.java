@@ -20,9 +20,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         logger.info("Polypheny-TestData started.");
-        String currentPath = System.getProperty( "user.home" );
-        File file = new File( currentPath, "RO" );
-        if ( file.exists() ) {
+        String currentPath = System.getProperty("user.home");
+        File file = new File(currentPath, "RO");
+        if (file.exists()) {
             boolean fileDeleted = file.delete();
             assert fileDeleted;
             logger.info("File {} deleted.", file.getAbsolutePath());
@@ -69,7 +69,55 @@ public class Main {
 
         List<String> indis = readFilesFromResourcesByList(List.of(
                 "mql/indi/indi_1.mql",
-                "mql/indi/indi_2.mql"
+                "mql/indi/indi_2.mql",
+                "mql/indi/indi_3.mql",
+                "mql/indi/indi_4.mql",
+                "mql/indi/indi_5.mql",
+                "mql/indi/indi_6.mql",
+                "mql/indi/indi_7.mql",
+                "mql/indi/indi_8.mql",
+                "mql/indi/indi_9.mql",
+                "mql/indi/indi_10.mql",
+                "mql/indi/indi_11.mql",
+                "mql/indi/indi_12.mql",
+                "mql/indi/indi_13.mql",
+                "mql/indi/indi_14.mql",
+                "mql/indi/indi_15.mql",
+                "mql/indi/indi_16.mql",
+                "mql/indi/indi_17.mql",
+                "mql/indi/indi_18.mql",
+                "mql/indi/indi_19.mql",
+                "mql/indi/indi_20.mql",
+                "mql/indi/indi_21.mql",
+                "mql/indi/indi_22.mql",
+                "mql/indi/indi_23.mql",
+                "mql/indi/indi_24.mql",
+                "mql/indi/indi_25.mql",
+                "mql/indi/indi_26.mql",
+                "mql/indi/indi_27.mql",
+                "mql/indi/indi_28.mql",
+                "mql/indi/indi_29.mql",
+                "mql/indi/indi_30.mql",
+                "mql/indi/indi_31.mql",
+                "mql/indi/indi_32.mql",
+                "mql/indi/indi_33.mql",
+                "mql/indi/indi_34.mql",
+                "mql/indi/indi_35.mql",
+                "mql/indi/indi_36.mql",
+                "mql/indi/indi_37.mql",
+                "mql/indi/indi_38.mql",
+                "mql/indi/indi_39.mql",
+                "mql/indi/indi_40.mql",
+                "mql/indi/indi_41.mql",
+                "mql/indi/indi_42.mql",
+                "mql/indi/indi_43.mql",
+                "mql/indi/indi_44.mql",
+                "mql/indi/indi_45.mql",
+                "mql/indi/indi_46.mql",
+                "mql/indi/indi_47.mql",
+                "mql/indi/indi_48.mql",
+                "mql/indi/indi_49.mql",
+                "mql/indi/indi_50.mql"
         ));
         indis.forEach(Main::executeMql);
 
