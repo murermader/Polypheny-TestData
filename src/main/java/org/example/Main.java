@@ -31,10 +31,10 @@ public class Main {
         createNamespaces();
         insertTestData();
 
-//        boolean fileCreated = file.createNewFile();
-//        assert fileCreated;
-//        logger.info("File {} created.", file.getAbsolutePath());
-//        logger.info("Done!");
+        boolean fileCreated = file.createNewFile();
+        assert fileCreated;
+        logger.info("File {} created.", file.getAbsolutePath());
+        logger.info("Done!");
     }
 
     private static void createNamespaces() {
