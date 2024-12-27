@@ -135,6 +135,45 @@ public class Main {
                 """);
         String bern = readFileFromResources("bern.sql");
         executeUpdateSql(bern);
+
+
+        executeUpdateSql("""
+                DROP TABLE IF EXISTS arrondissement
+                """);
+        executeUpdateSql("""
+                CREATE TABLE arrondissement (
+                    num INT NOT NULL,
+                    name VARCHAR(100) NOT NULL,
+                    Location GEOMETRY NOT NULL,
+                    PRIMARY KEY (num));
+                """);
+        String arron = readFileFromResources("arron.sql");
+        executeUpdateSql(arron);
+
+        executeUpdateSql("""
+                DROP TABLE IF EXISTS restaurants
+                """);
+        executeUpdateSql("""
+                CREATE TABLE restaurants (
+                   restaurant_link VARCHAR(255) NOT NULL,
+                   name VARCHAR(255) NOT NULL,
+                   address VARCHAR(255) NOT NULL,
+                   Location GEOMETRY NOT NULL,
+                   top_tags VARCHAR(255) NOT NULL,
+                   price_range VARCHAR(255) NOT NULL,
+                   cuisines VARCHAR(255) NOT NULL,
+                   special_diets VARCHAR(255) NOT NULL,
+                   excellent INT NOT NULL,
+                   very_good INT NOT NULL,
+                   average INT NOT NULL,
+                   poor INT NOT NULL,
+                   terrible INT NOT NULL,
+                   price_level INT NOT NULL,
+                   total_ratings INT NOT NULL,
+                   PRIMARY KEY (restaurant_link));
+                """);
+        String restaurants = readFileFromResources("restaurants.sql");
+        executeUpdateSql(restaurants);
     }
 
     public static void executeMql(String mql) {
