@@ -1,4 +1,4 @@
-INSERT INTO BernTempSensors (stationId, temp, relativeHumidity, name, Location)
+INSERT INTO BernTempSensors (stationId, temp, relativeHumidity, name, location)
 VALUES
     (11003, 1.2073702, 94.32998, 'Waffenweg', ST_GeomFromText('POINT(7.45192 46.96173)')),
     (11032, 0.17395285, 96.43, 'Murifeld', ST_GeomFromText('POINT(7.47992 46.93919)')),

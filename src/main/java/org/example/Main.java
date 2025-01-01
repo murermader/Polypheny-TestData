@@ -130,7 +130,7 @@ public class Main {
                     temp DOUBLE NOT NULL,
                     relativeHumidity DOUBLE NOT NULL,
                     name VARCHAR(100) NOT NULL,
-                    Location GEOMETRY NOT NULL,
+                    location GEOMETRY NOT NULL,
                     PRIMARY KEY (stationId));
                 """);
         String bern = readFileFromResources("bern.sql");
@@ -144,7 +144,7 @@ public class Main {
                 CREATE TABLE arrondissement (
                     num INT NOT NULL,
                     name VARCHAR(100) NOT NULL,
-                    Location GEOMETRY NOT NULL,
+                    location GEOMETRY NOT NULL,
                     PRIMARY KEY (num));
                 """);
         String arron = readFileFromResources("arron.sql");
@@ -158,7 +158,7 @@ public class Main {
                    restaurant_link VARCHAR(255) NOT NULL,
                    name VARCHAR(255) NOT NULL,
                    address VARCHAR(255) NOT NULL,
-                   Location GEOMETRY NOT NULL,
+                   location GEOMETRY NOT NULL,
                    top_tags VARCHAR(255) NOT NULL,
                    price_range VARCHAR(255) NOT NULL,
                    cuisines VARCHAR(255) NOT NULL,
@@ -175,6 +175,19 @@ public class Main {
                 """);
         String restaurants = readFileFromResources("restaurants.sql");
         executeUpdateSql(restaurants);
+
+        executeUpdateSql("""
+                DROP TABLE IF EXISTS sightseeing
+                """);
+        executeUpdateSql("""
+                CREATE TABLE sightseeing (
+                    idx INT NOT NULL,
+                    name VARCHAR(100) NOT NULL,
+                    location GEOMETRY NOT NULL,
+                    PRIMARY KEY (idx));
+                """);
+        String sightseeing = readFileFromResources("sightseeing.sql");
+        executeUpdateSql(sightseeing);
     }
 
     public static void executeMql(String mql) {
