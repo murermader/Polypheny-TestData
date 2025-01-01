@@ -170,6 +170,7 @@ public class Main {
                    terrible INT NOT NULL,
                    price_level INT NOT NULL,
                    total_ratings INT NOT NULL,
+                   rating DOUBLE NOT NULL,
                    PRIMARY KEY (restaurant_link));
                 """);
         String restaurants = readFileFromResources("restaurants.sql");
