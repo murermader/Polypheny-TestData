@@ -160,7 +160,6 @@ public class Main {
                    address VARCHAR(255) NOT NULL,
                    location GEOMETRY NOT NULL,
                    top_tags VARCHAR(255) NOT NULL,
-                   price_range VARCHAR(255) NOT NULL,
                    cuisines VARCHAR(255) NOT NULL,
                    special_diets VARCHAR(255) NOT NULL,
                    excellent INT NOT NULL,
@@ -168,7 +167,7 @@ public class Main {
                    average INT NOT NULL,
                    poor INT NOT NULL,
                    terrible INT NOT NULL,
-                   price_level INT NOT NULL,
+                   average_price INT NOT NULL,
                    total_ratings INT NOT NULL,
                    rating DOUBLE NOT NULL,
                    PRIMARY KEY (restaurant_link));
